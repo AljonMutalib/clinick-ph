@@ -91,8 +91,8 @@
                 
                 <!-- Desktop Menu -->
                 <div class="hidden md:flex items-center space-x-8">
-                    <a href="#features" class="text-gray-600 hover:text-medicalBlue font-medium transition-colors">Features</a>
-                    <a href="#why-us" class="text-gray-600 hover:text-medicalBlue font-medium transition-colors">How it Works</a>
+                    <a href="javascript:void(0)" onclick="showPage('home'); setTimeout(() => document.getElementById('features').scrollIntoView({behavior:'smooth'}), 100)" class="text-gray-600 hover:text-medicalBlue font-medium transition-colors">Features</a>
+                    <a href="javascript:void(0)" onclick="showPage('home'); setTimeout(() => document.getElementById('why-us').scrollIntoView({behavior:'smooth'}), 100)" class="text-gray-600 hover:text-medicalBlue font-medium transition-colors">How it Works</a>
                     <a href="#download" class="bg-medicalBlue hover:bg-medicalBlue-dark text-white px-6 py-2.5 rounded-full font-medium transition-all transform hover:scale-105 shadow-md">
                         Download Now
                     </a>
@@ -110,8 +110,8 @@
         <!-- Mobile Menu Panel -->
         <div id="mobile-menu" class="hidden md:hidden bg-white border-t border-gray-100 absolute w-full shadow-lg">
             <div class="px-4 pt-2 pb-6 space-y-1 sm:px-3 flex flex-col">
-                <a href="#features" class="block px-3 py-3 text-base font-medium text-gray-700 hover:text-medicalBlue hover:bg-medicalBlue-light rounded-md">Features</a>
-                <a href="#why-us" class="block px-3 py-3 text-base font-medium text-gray-700 hover:text-medicalBlue hover:bg-medicalBlue-light rounded-md">How it Works</a>
+                <a href="javascript:void(0)" onclick="showPage('home')" class="block px-3 py-3 text-base font-medium text-gray-700 hover:text-medicalBlue hover:bg-medicalBlue-light rounded-md">Features</a>
+                <a href="javascript:void(0)" onclick="showPage('home')" class="block px-3 py-3 text-base font-medium text-gray-700 hover:text-medicalBlue hover:bg-medicalBlue-light rounded-md">How it Works</a>
                 <a href="#download" class="block px-3 py-3 mt-4 text-center text-base font-medium bg-medicalBlue text-white rounded-full shadow-sm">Download Now</a>
             </div>
         </div>
@@ -345,7 +345,80 @@
             </div>
         </div>
     </section>
+    <!-- About Us Page Content -->
+    <div id="page-about" class="page-content pt-32 pb-20">
+        <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+            <h1 class="text-4xl font-bold text-darkText mb-8">About Clinick PH</h1>
+            <div class="prose prose-lg text-gray-600 max-w-none">
+                <p class="mb-6">Clinick PH was born out of a desire to modernize the healthcare experience in Zamboanga City. We noticed the struggle of local families waiting hours in clinic lobbies and the administrative burden on our hardworking medical secretaries.</p>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-8 my-12">
+                    <div class="bg-medicalBlue-light p-8 rounded-2xl">
+                        <h3 class="text-medicalBlue font-bold text-xl mb-4">Our Mission</h3>
+                        <p>To provide every Zamboangueño with seamless, digital access to local healthcare services, reducing stress and improving health outcomes.</p>
+                    </div>
+                    <div class="bg-mintGreen-light p-8 rounded-2xl">
+                        <h3 class="text-mintGreen-dark font-bold text-xl mb-4">Our Vision</h3>
+                        <p>To be the leading digital healthcare bridge in the Zamboanga Peninsula, connecting patients and doctors through reliability and care.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 
+    <!-- For Clinics Page Content -->
+    <div id="page-clinics" class="page-content pt-32 pb-20">
+        <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="bg-darkText rounded-3xl p-12 text-white relative overflow-hidden mb-16">
+                <div class="relative z-10">
+                    <h1 class="text-4xl font-bold mb-6">Empower your practice.</h1>
+                    <p class="text-xl text-blue-100 mb-8 max-w-2xl">Reduce waiting room congestion and digitize your patient records with our purpose-built platform for Zamboanga clinics.</p>
+                    <a href="mailto:partners@clinick.ph" class="bg-mintGreen hover:bg-mintGreen-dark px-8 py-4 rounded-full font-bold transition-all inline-block">Become a Partner</a>
+                </div>
+                <i class="fa-solid fa-hospital-user absolute bottom-0 right-0 text-9xl text-white/10 -mb-4 -mr-4"></i>
+            </div>
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                <div class="p-6 border border-gray-100 rounded-xl shadow-sm text-center">
+                    <div class="text-4xl font-bold text-medicalBlue mb-2">Automated</div>
+                    <p class="text-gray-600">Queue management and scheduling</p>
+                </div>
+                <div class="p-6 border border-gray-100 rounded-xl shadow-sm text-center">
+                    <div class="text-4xl font-bold text-medicalBlue mb-2">Secure</div>
+                    <p class="text-gray-600">Digital patient history storage</p>
+                </div>
+                <div class="p-6 border border-gray-100 rounded-xl shadow-sm text-center">
+                    <div class="text-4xl font-bold text-medicalBlue mb-2">Instant</div>
+                    <p class="text-gray-600">Patient communication tools</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Privacy Policy Page Content -->
+    <div id="page-privacy" class="page-content pt-32 pb-20">
+        <div class="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8">
+            <h1 class="text-3xl font-bold mb-8">Privacy Policy</h1>
+            <div class="prose prose-blue text-gray-600">
+                <p class="mb-4 font-bold text-darkText italic">Last Updated: March 2026</p>
+                <h2 class="text-xl font-bold text-darkText mt-8 mb-4">1. Data We Collect</h2>
+                <p class="mb-6">To provide our services, we collect basic contact information, appointment history, and profile details for you and your family members. All medical data is handled with strict confidentiality in compliance with the Data Privacy Act of 2012.</p>
+                <h2 class="text-xl font-bold text-darkText mt-8 mb-4">2. Use of Information</h2>
+                <p class="mb-6">We use your information only to facilitate appointments, send notifications about your health visits, and improve the application's performance.</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Terms Page Content -->
+    <div id="page-terms" class="page-content pt-32 pb-20">
+        <div class="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8">
+            <h1 class="text-3xl font-bold mb-8">Terms of Service</h1>
+            <div class="prose prose-blue text-gray-600">
+                <h2 class="text-xl font-bold text-darkText mt-8 mb-4">1. Account Responsibility</h2>
+                <p class="mb-6">Users are responsible for the accuracy of information provided. False representation may result in account suspension.</p>
+                <h2 class="text-xl font-bold text-darkText mt-8 mb-4">2. Appointment Cancellations</h2>
+                <p class="mb-6">Users should cancel appointments at least 2 hours in advance. Frequent no-shows may limit your ability to book future appointments.</p>
+            </div>
+        </div>
+    </div>
     <!-- CTA Section -->
     <section id="download" class="py-20 bg-white">
         <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
@@ -392,6 +465,17 @@
                     </div>
                 </div>
 
+                <!-- Links Column -->
+                <div>
+                    <h4 class="text-white font-bold mb-4 uppercase text-sm tracking-wider">Company</h4>
+                    <ul class="space-y-2">
+                        <li><a href="javascript:void(0)" onclick="showPage('about')" class="text-gray-400 hover:text-mintGreen transition-colors">About Us</a></li>
+                        <li><a href="javascript:void(0)" onclick="showPage('clinics')" class="text-gray-400 hover:text-mintGreen transition-colors">For Clinics</a></li>
+                        <li><a href="javascript:void(0)" onclick="showPage('privacy')" class="text-gray-400 hover:text-mintGreen transition-colors">Privacy Policy</a></li>
+                        <li><a href="javascript:void(0)" onclick="showPage('terms')" class="text-gray-400 hover:text-mintGreen transition-colors">Terms of Service</a></li>
+                    </ul>
+                </div>
+
                 <!-- Contact Column -->
                 <div>
                     <h4 class="text-white font-bold mb-4 uppercase text-sm tracking-wider">Contact</h4>
@@ -425,6 +509,16 @@
 
     <!-- Interactive Scripts -->
     <script>
+        function showPage(pageId) {
+            // Hide all pages
+            document.querySelectorAll('.page-content').forEach(p => p.classList.remove('active'));
+            // Show target page
+            const target = document.getElementById('page-' + pageId);
+            if(target) {
+                target.classList.add('active');
+                window.scrollTo(0, 0);
+            }
+        }
         // Mobile Menu Toggle
         const btn = document.getElementById('mobile-menu-btn');
         const menu = document.getElementById('mobile-menu');
