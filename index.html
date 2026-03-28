@@ -76,6 +76,10 @@
         .app-card { background: white; border-radius: 1rem; padding: 15px; margin: 15px; box-shadow: 0 4px 6px -1px rgba(0,0,0,0.1); display: flex; align-items: center; gap: 15px; }
         .app-avatar { width: 45px; height: 45px; border-radius: 50%; background: #EAF4F7; display: flex; align-items: center; justify-content: center; color: #358EAA; font-size: 1.2rem;}
         .app-line { height: 8px; background: #e2e8f0; border-radius: 4px; margin-bottom: 8px; }
+
+        /* Multi-page visibility logic */
+        .page-view { display: none; }
+        .page-view.active { display: block; }
     </style>
 </head>
 <body class="font-sans text-darkText bg-white antialiased selection:bg-mintGreen selection:text-white">
@@ -85,14 +89,14 @@
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="flex justify-between items-center h-20">
                 <!-- Logo -->
-                <div class="flex-shrink-0 flex items-center cursor-pointer" onclick="window.scrollTo(0,0)">
-                    <img src="assets/logo-with-text.png" alt="Clinick Logo" class="h-10 w-auto object-contain">
+                <div class="flex-shrink-0 flex items-center cursor-pointer" onclick="navigateTo('home')">
+                    <img src="logo-with-text.png" alt="Clinick Logo" class="h-10 w-auto object-contain">
                 </div>
                 
                 <!-- Desktop Menu -->
                 <div class="hidden md:flex items-center space-x-8">
-                    <a href="javascript:void(0)" onclick="showPage('home'); setTimeout(() => document.getElementById('features').scrollIntoView({behavior:'smooth'}), 100)" class="text-gray-600 hover:text-medicalBlue font-medium transition-colors">Features</a>
-                    <a href="javascript:void(0)" onclick="showPage('home'); setTimeout(() => document.getElementById('why-us').scrollIntoView({behavior:'smooth'}), 100)" class="text-gray-600 hover:text-medicalBlue font-medium transition-colors">How it Works</a>
+                    <a href="javascript:void(0)" onclick="navigateTo('home', 'features')" class="text-gray-600 hover:text-medicalBlue font-medium transition-colors">Features</a>
+                    <a href="javascript:void(0)" onclick="navigateTo('home', 'why-us')" class="text-gray-600 hover:text-medicalBlue font-medium transition-colors">How it Works</a>
                     <a href="#download" class="bg-medicalBlue hover:bg-medicalBlue-dark text-white px-6 py-2.5 rounded-full font-medium transition-all transform hover:scale-105 shadow-md">
                         Download Now
                     </a>
@@ -110,337 +114,316 @@
         <!-- Mobile Menu Panel -->
         <div id="mobile-menu" class="hidden md:hidden bg-white border-t border-gray-100 absolute w-full shadow-lg">
             <div class="px-4 pt-2 pb-6 space-y-1 sm:px-3 flex flex-col">
-                <a href="javascript:void(0)" onclick="showPage('home')" class="block px-3 py-3 text-base font-medium text-gray-700 hover:text-medicalBlue hover:bg-medicalBlue-light rounded-md">Features</a>
-                <a href="javascript:void(0)" onclick="showPage('home')" class="block px-3 py-3 text-base font-medium text-gray-700 hover:text-medicalBlue hover:bg-medicalBlue-light rounded-md">How it Works</a>
+                <a href="javascript:void(0)" onclick="navigateTo('home', 'features')" class="block px-3 py-3 text-base font-medium text-gray-700 hover:text-medicalBlue hover:bg-medicalBlue-light rounded-md">Features</a>
+                <a href="javascript:void(0)" onclick="navigateTo('home', 'why-us')" class="block px-3 py-3 text-base font-medium text-gray-700 hover:text-medicalBlue hover:bg-medicalBlue-light rounded-md">How it Works</a>
                 <a href="#download" class="block px-3 py-3 mt-4 text-center text-base font-medium bg-medicalBlue text-white rounded-full shadow-sm">Download Now</a>
             </div>
         </div>
     </nav>
 
-    <!-- Hero Section -->
-    <section class="relative pt-32 pb-20 lg:pt-48 lg:pb-32 overflow-hidden">
-        <!-- Background decorative blobs -->
-        <div class="absolute top-0 right-0 -mr-20 -mt-20 w-96 h-96 rounded-full bg-medicalBlue-light opacity-50 blur-3xl -z-10"></div>
-        <div class="absolute bottom-0 left-0 -ml-20 -mb-20 w-80 h-80 rounded-full bg-mintGreen-light opacity-50 blur-3xl -z-10"></div>
+    <!-- Main Content -->
+    <main id="main-view">
+        
+        <!-- HOME PAGE VIEW -->
+        <div id="view-home" class="page-view active">
+            <!-- Hero Section -->
+            <section class="relative pt-32 pb-20 lg:pt-48 lg:pb-32 overflow-hidden">
+                <!-- Background decorative blobs -->
+                <div class="absolute top-0 right-0 -mr-20 -mt-20 w-96 h-96 rounded-full bg-medicalBlue-light opacity-50 blur-3xl -z-10"></div>
+                <div class="absolute bottom-0 left-0 -ml-20 -mb-20 w-80 h-80 rounded-full bg-mintGreen-light opacity-50 blur-3xl -z-10"></div>
 
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative">
-            <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
-                
-                <!-- Hero Text -->
-                <div class="text-center lg:text-left z-10">
-                    <div class="inline-flex items-center px-4 py-2 rounded-full bg-mintGreen-light text-mintGreen-dark font-medium text-sm mb-6">
-                        <i class="fa-solid fa-location-dot mr-2"></i> Proudly serving Zamboanga City
-                    </div>
-                    <h1 class="text-4xl md:text-5xl lg:text-6xl font-extrabold leading-tight text-darkText mb-6">
-                        Healthcare Booking <br>
-                        <span class="text-medicalBlue">Made Simple</span> for Zamboanga.
-                    </h1>
-                    <p class="text-lg md:text-xl text-gray-600 mb-8 max-w-2xl mx-auto lg:mx-0">
-                        Skip the long lines. Book your favorite doctors, manage family appointments, and track your health—all from your phone.
-                    </p>
-                    
-                    <div class="flex flex-col sm:flex-row gap-4 justify-center lg:justify-start">
-                        <a href="#download" class="bg-medicalBlue hover:bg-medicalBlue-dark text-white px-8 py-4 rounded-full font-semibold text-lg transition-all shadow-lg shadow-medicalBlue/30 transform hover:-translate-y-1 flex items-center justify-center">
-                            <i class="fa-brands fa-apple text-xl mr-2"></i> App Store
-                        </a>
-                        <a href="#download" class="bg-white border-2 border-gray-200 hover:border-mintGreen hover:text-mintGreen text-gray-700 px-8 py-4 rounded-full font-semibold text-lg transition-all shadow-sm transform hover:-translate-y-1 flex items-center justify-center">
-                            <i class="fa-brands fa-google-play text-xl mr-2"></i> Google Play
-                        </a>
-                    </div>
-                    
-                    <div class="mt-8 flex items-center justify-center lg:justify-start text-sm text-gray-500">
-                        <div class="flex -space-x-2 mr-4">
-                            <img class="w-8 h-8 rounded-full border-2 border-white" src="https://i.pravatar.cc/100?img=1" alt="User">
-                            <img class="w-8 h-8 rounded-full border-2 border-white" src="https://i.pravatar.cc/100?img=2" alt="User">
-                            <img class="w-8 h-8 rounded-full border-2 border-white" src="https://i.pravatar.cc/100?img=3" alt="User">
-                        </div>
-                        <p>Trusted by 5,000+ local families</p>
-                    </div>
-                </div>
-
-                <!-- Hero Visual (CSS Mockup) -->
-                <div class="relative mx-auto w-full max-w-[350px] lg:max-w-none flex justify-center mt-10 lg:mt-0">
-                    <!-- Decorative circle behind phone -->
-                    <div class="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-[350px] h-[350px] bg-medicalBlue rounded-full opacity-10"></div>
-                    
-                    <div class="phone-mockup animate-[bounce_3s_ease-in-out_infinite]" style="animation-duration: 4s;">
-                        <div class="phone-notch"></div>
-                        <!-- App UI Skeleton -->
-                        <div class="app-header">
-                            <p class="text-white/80 text-sm">Good morning,</p>
-                            <h3 class="text-white font-bold text-xl mt-1">Juan Dela Cruz</h3>
-                            <div class="bg-white/20 rounded-lg p-3 mt-4 flex items-center">
-                                <i class="fa-solid fa-magnifying-glass text-white mr-2"></i>
-                                <div class="w-3/4 h-3 bg-white/40 rounded"></div>
+                <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative">
+                    <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+                        
+                        <!-- Hero Text -->
+                        <div class="text-center lg:text-left z-10">
+                            <div class="inline-flex items-center px-4 py-2 rounded-full bg-mintGreen-light text-mintGreen-dark font-medium text-sm mb-6">
+                                <i class="fa-solid fa-location-dot mr-2"></i> Proudly serving Zamboanga City
                             </div>
-                        </div>
-                        <div class="p-4">
-                            <h4 class="font-bold text-gray-700 mb-3">Upcoming Appointment</h4>
-                            <div class="bg-medicalBlue-light rounded-xl p-4 mb-4 border border-blue-100">
-                                <div class="flex justify-between items-start mb-3">
-                                    <div class="flex items-center gap-3">
-                                        <div class="w-10 h-10 rounded-full bg-medicalBlue text-white flex items-center justify-center font-bold">Dr.</div>
-                                        <div>
-                                            <div class="w-24 h-4 bg-medicalBlue/40 rounded mb-1"></div>
-                                            <div class="w-16 h-3 bg-medicalBlue/30 rounded"></div>
-                                        </div>
-                                    </div>
-                                    <div class="bg-white text-medicalBlue text-xs px-2 py-1 rounded font-bold shadow-sm">Today</div>
-                                </div>
-                                <div class="flex items-center text-sm text-medicalBlue-dark gap-2 mt-3 bg-white/50 p-2 rounded-lg">
-                                    <i class="fa-regular fa-clock"></i> 2:30 PM
-                                </div>
+                            <h1 class="text-4xl md:text-5xl lg:text-6xl font-extrabold leading-tight text-darkText mb-6">
+                                Healthcare Booking <br>
+                                <span class="text-medicalBlue">Made Simple</span> for Zamboanga.
+                            </h1>
+                            <p class="text-lg md:text-xl text-gray-600 mb-8 max-w-2xl mx-auto lg:mx-0">
+                                Skip the long lines. Book your favorite doctors, manage family appointments, and track your health—all from your phone.
+                            </p>
+                            
+                            <div class="flex flex-col sm:flex-row gap-4 justify-center lg:justify-start">
+                                <a href="#download" class="bg-medicalBlue hover:bg-medicalBlue-dark text-white px-8 py-4 rounded-full font-semibold text-lg transition-all shadow-lg shadow-medicalBlue/30 transform hover:-translate-y-1 flex items-center justify-center">
+                                    <i class="fa-brands fa-apple text-xl mr-2"></i> App Store
+                                </a>
+                                <a href="#download" class="bg-white border-2 border-gray-200 hover:border-mintGreen hover:text-mintGreen text-gray-700 px-8 py-4 rounded-full font-semibold text-lg transition-all shadow-sm transform hover:-translate-y-1 flex items-center justify-center">
+                                    <i class="fa-brands fa-google-play text-xl mr-2"></i> Google Play
+                                </a>
                             </div>
                             
-                            <h4 class="font-bold text-gray-700 mb-2">Available Specialists</h4>
-                            <div class="app-card">
-                                <div class="app-avatar"><i class="fa-solid fa-tooth"></i></div>
-                                <div class="flex-1">
-                                    <div class="app-line w-3/4"></div>
-                                    <div class="app-line w-1/2" style="height: 6px;"></div>
+                            <div class="mt-8 flex items-center justify-center lg:justify-start text-sm text-gray-500">
+                                <div class="flex -space-x-2 mr-4">
+                                    <img class="w-8 h-8 rounded-full border-2 border-white" src="https://i.pravatar.cc/100?img=1" alt="User">
+                                    <img class="w-8 h-8 rounded-full border-2 border-white" src="https://i.pravatar.cc/100?img=2" alt="User">
+                                    <img class="w-8 h-8 rounded-full border-2 border-white" src="https://i.pravatar.cc/100?img=3" alt="User">
                                 </div>
-                                <i class="fa-solid fa-chevron-right text-gray-300"></i>
-                            </div>
-                            <div class="app-card">
-                                <div class="app-avatar bg-mintGreen-light text-mintGreen"><i class="fa-solid fa-eye"></i></div>
-                                <div class="flex-1">
-                                    <div class="app-line w-2/3"></div>
-                                    <div class="app-line w-1/2" style="height: 6px;"></div>
-                                </div>
-                                <i class="fa-solid fa-chevron-right text-gray-300"></i>
+                                <p>Trusted by 5,000+ local families</p>
                             </div>
                         </div>
-                        
-                        <!-- Bottom Nav -->
-                        <div class="absolute bottom-0 w-full bg-white border-t border-gray-100 p-4 flex justify-around text-gray-400">
-                            <i class="fa-solid fa-house text-medicalBlue"></i>
-                            <i class="fa-regular fa-calendar"></i>
-                            <i class="fa-regular fa-bell"></i>
-                            <i class="fa-regular fa-user"></i>
+
+                        <!-- Hero Visual (CSS Mockup) -->
+                        <div class="relative mx-auto w-full max-w-[350px] lg:max-w-none flex justify-center mt-10 lg:mt-0">
+                            <!-- Decorative circle behind phone -->
+                            <div class="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-[350px] h-[350px] bg-medicalBlue rounded-full opacity-10"></div>
+                            
+                            <div class="phone-mockup animate-[bounce_3s_ease-in-out_infinite]" style="animation-duration: 4s;">
+                                <div class="phone-notch"></div>
+                                <!-- App UI Skeleton -->
+                                <div class="app-header">
+                                    <p class="text-white/80 text-sm">Good morning,</p>
+                                    <h3 class="text-white font-bold text-xl mt-1">Juan Dela Cruz</h3>
+                                    <div class="bg-white/20 rounded-lg p-3 mt-4 flex items-center">
+                                        <i class="fa-solid fa-magnifying-glass text-white mr-2"></i>
+                                        <div class="w-3/4 h-3 bg-white/40 rounded"></div>
+                                    </div>
+                                </div>
+                                <div class="p-4">
+                                    <h4 class="font-bold text-gray-700 mb-3">Upcoming Appointment</h4>
+                                    <div class="bg-medicalBlue-light rounded-xl p-4 mb-4 border border-blue-100">
+                                        <div class="flex justify-between items-start mb-3">
+                                            <div class="flex items-center gap-3">
+                                                <div class="w-10 h-10 rounded-full bg-medicalBlue text-white flex items-center justify-center font-bold">Dr.</div>
+                                                <div>
+                                                    <div class="w-24 h-4 bg-medicalBlue/40 rounded mb-1"></div>
+                                                    <div class="w-16 h-3 bg-medicalBlue/30 rounded"></div>
+                                                </div>
+                                            </div>
+                                            <div class="bg-white text-medicalBlue text-xs px-2 py-1 rounded font-bold shadow-sm">Today</div>
+                                        </div>
+                                        <div class="flex items-center text-sm text-medicalBlue-dark gap-2 mt-3 bg-white/50 p-2 rounded-lg">
+                                            <i class="fa-regular fa-clock"></i> 2:30 PM
+                                        </div>
+                                    </div>
+                                    
+                                    <h4 class="font-bold text-gray-700 mb-2">Available Specialists</h4>
+                                    <div class="app-card">
+                                        <div class="app-avatar"><i class="fa-solid fa-tooth"></i></div>
+                                        <div class="flex-1">
+                                            <div class="app-line w-3/4"></div>
+                                            <div class="app-line w-1/2" style="height: 6px;"></div>
+                                        </div>
+                                        <i class="fa-solid fa-chevron-right text-gray-300"></i>
+                                    </div>
+                                    <div class="app-card">
+                                        <div class="app-avatar bg-mintGreen-light text-mintGreen"><i class="fa-solid fa-eye"></i></div>
+                                        <div class="flex-1">
+                                            <div class="app-line w-2/3"></div>
+                                            <div class="app-line w-1/2" style="height: 6px;"></div>
+                                        </div>
+                                        <i class="fa-solid fa-chevron-right text-gray-300"></i>
+                                    </div>
+                                </div>
+                                
+                                <!-- Bottom Nav -->
+                                <div class="absolute bottom-0 w-full bg-white border-t border-gray-100 p-4 flex justify-around text-gray-400">
+                                    <i class="fa-solid fa-house text-medicalBlue"></i>
+                                    <i class="fa-regular fa-calendar"></i>
+                                    <i class="fa-regular fa-bell"></i>
+                                    <i class="fa-regular fa-user"></i>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>
-            </div>
-        </div>
-    </section>
+            </section>
 
-    <!-- Core Features Section -->
-    <section id="features" class="py-20 bg-lightBg">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="text-center max-w-3xl mx-auto mb-16">
-                <h2 class="text-mintGreen font-bold tracking-wide uppercase text-sm mb-2">Platform Features</h2>
-                <h3 class="text-3xl md:text-4xl font-bold text-darkText mb-4">Everything you need to manage your family's health</h3>
-                <p class="text-gray-600 text-lg">We've built Clinick PH from the ground up to solve the most common frustrations with clinic visits in the city.</p>
-            </div>
-
-            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
-                <!-- Feature 1 -->
-                <div class="bg-white rounded-2xl p-8 shadow-soft hover:shadow-lg transition-shadow border border-gray-100 group">
-                    <div class="w-14 h-14 bg-medicalBlue-light text-medicalBlue rounded-xl flex items-center justify-center text-2xl mb-6 group-hover:scale-110 transition-transform">
-                        <i class="fa-regular fa-calendar-check"></i>
+            <!-- Core Features Section -->
+            <section id="features" class="py-20 bg-lightBg">
+                <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                    <div class="text-center max-w-3xl mx-auto mb-16">
+                        <h2 class="text-mintGreen font-bold tracking-wide uppercase text-sm mb-2">Platform Features</h2>
+                        <h3 class="text-3xl md:text-4xl font-bold text-darkText mb-4">Everything you need to manage your family's health</h3>
+                        <p class="text-gray-600 text-lg">We've built Clinick PH from the ground up to solve the most common frustrations with clinic visits in the city.</p>
                     </div>
-                    <h4 class="text-xl font-bold text-darkText mb-3">Real-time Scheduling</h4>
-                    <p class="text-gray-600 leading-relaxed">
-                        Select doctors and see available slots instantly without page reloads. Book, reschedule, or cancel with just a tap—your time is yours again.
-                    </p>
-                </div>
 
-                <!-- Feature 2 -->
-                <div class="bg-white rounded-2xl p-8 shadow-soft hover:shadow-lg transition-shadow border border-gray-100 group">
-                    <div class="w-14 h-14 bg-mintGreen-light text-mintGreen rounded-xl flex items-center justify-center text-2xl mb-6 group-hover:scale-110 transition-transform">
-                        <i class="fa-solid fa-users-viewfinder"></i>
+                    <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                        <!-- Feature 1 -->
+                        <div class="bg-white rounded-2xl p-8 shadow-soft hover:shadow-lg transition-shadow border border-gray-100 group">
+                            <div class="w-14 h-14 bg-medicalBlue-light text-medicalBlue rounded-xl flex items-center justify-center text-2xl mb-6 group-hover:scale-110 transition-transform">
+                                <i class="fa-regular fa-calendar-check"></i>
+                            </div>
+                            <h4 class="text-xl font-bold text-darkText mb-3">Real-time Scheduling</h4>
+                            <p class="text-gray-600 leading-relaxed">
+                                Select doctors and see available slots instantly without page reloads. Book, reschedule, or cancel with just a tap—your time is yours again.
+                            </p>
+                        </div>
+
+                        <!-- Feature 2 -->
+                        <div class="bg-white rounded-2xl p-8 shadow-soft hover:shadow-lg transition-shadow border border-gray-100 group">
+                            <div class="w-14 h-14 bg-mintGreen-light text-mintGreen rounded-xl flex items-center justify-center text-2xl mb-6 group-hover:scale-110 transition-transform">
+                                <i class="fa-solid fa-users-viewfinder"></i>
+                            </div>
+                            <h4 class="text-xl font-bold text-darkText mb-3">Family Directory</h4>
+                            <p class="text-gray-600 leading-relaxed">
+                                Manage profiles, and appointments for your entire household in one secure place. Switching between dependents is seamless.
+                            </p>
+                        </div>
+
+                        <!-- Feature 3 -->
+                        <div class="bg-white rounded-2xl p-8 shadow-soft hover:shadow-lg transition-shadow border border-gray-100 group">
+                            <div class="w-14 h-14 bg-blue-50 text-blue-500 rounded-xl flex items-center justify-center text-2xl mb-6 group-hover:scale-110 transition-transform">
+                                <i class="fa-solid fa-map-location-dot"></i>
+                            </div>
+                            <h4 class="text-xl font-bold text-darkText mb-3">Local Focus</h4>
+                            <p class="text-gray-600 leading-relaxed">
+                                Tailored specifically for clinics and residents in Zamboanga City. Find specialists near your barangay with accurate local directories.
+                            </p>
+                        </div>
                     </div>
-                    <h4 class="text-xl font-bold text-darkText mb-3">Family Directory</h4>
-                    <p class="text-gray-600 leading-relaxed">
-                        Manage profiles, medical records, and appointments for your entire household in one secure place. Switching between dependents is seamless.
-                    </p>
                 </div>
-
-                <!-- Feature 3 -->
-                <div class="bg-white rounded-2xl p-8 shadow-soft hover:shadow-lg transition-shadow border border-gray-100 group">
-                    <div class="w-14 h-14 bg-blue-50 text-blue-500 rounded-xl flex items-center justify-center text-2xl mb-6 group-hover:scale-110 transition-transform">
-                        <i class="fa-solid fa-map-location-dot"></i>
-                    </div>
-                    <h4 class="text-xl font-bold text-darkText mb-3">Local Focus</h4>
-                    <p class="text-gray-600 leading-relaxed">
-                        Tailored specifically for clinics and residents in Zamboanga City. Find specialists near your barangay with accurate local directories.
-                    </p>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Why Us Section (Speed & Tech) -->
-    <section id="why-us" class="py-24 relative overflow-hidden">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="bg-medicalBlue rounded-[2.5rem] p-8 md:p-16 relative overflow-hidden shadow-2xl">
-                <!-- Decorative background elements -->
-                <div class="absolute top-0 right-0 w-64 h-64 bg-white opacity-5 rounded-full blur-3xl transform translate-x-1/2 -translate-y-1/2"></div>
-                <div class="absolute bottom-0 left-0 w-64 h-64 bg-mintGreen opacity-20 rounded-full blur-3xl transform -translate-x-1/2 translate-y-1/2"></div>
-                
-                <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center relative z-10">
-                    <div>
-                        <h2 class="text-mintGreen font-bold tracking-wide uppercase text-sm mb-2">The Clinick PH Difference</h2>
-                        <h3 class="text-3xl md:text-4xl font-bold text-white mb-6">Lightning fast. Zero lag. Instant updates.</h3>
-                        <p class="text-blue-100 text-lg mb-8 leading-relaxed">
-                            We know there's nothing worse than an app that freezes when you're trying to book an urgent checkup. That's why Clinick PH is built on modern, state-of-the-art infrastructure.
-                        </p>
+            </section>
+            
+            <!-- Why Us Section -->
+            <section id="why-us" class="py-24 relative overflow-hidden">
+                <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                    <div class="bg-medicalBlue rounded-[2.5rem] p-8 md:p-16 relative overflow-hidden shadow-2xl">
+                        <!-- Decorative background elements -->
+                        <div class="absolute top-0 right-0 w-64 h-64 bg-white opacity-5 rounded-full blur-3xl transform translate-x-1/2 -translate-y-1/2"></div>
+                        <div class="absolute bottom-0 left-0 w-64 h-64 bg-mintGreen opacity-20 rounded-full blur-3xl transform -translate-x-1/2 translate-y-1/2"></div>
                         
-                        <ul class="space-y-4">
-                            <li class="flex items-start">
-                                <div class="flex-shrink-0 w-6 h-6 rounded-full bg-mintGreen flex items-center justify-center text-white mt-1">
-                                    <i class="fa-solid fa-check text-xs"></i>
-                                </div>
-                                <p class="ml-3 text-white font-medium">Live queue monitoring—see how many patients are ahead of you.</p>
-                            </li>
-                            <li class="flex items-start">
-                                <div class="flex-shrink-0 w-6 h-6 rounded-full bg-mintGreen flex items-center justify-center text-white mt-1">
-                                    <i class="fa-solid fa-check text-xs"></i>
-                                </div>
-                                <p class="ml-3 text-white font-medium">Instant notifications the second a doctor approves your slot.</p>
-                            </li>
-                            <li class="flex items-start">
-                                <div class="flex-shrink-0 w-6 h-6 rounded-full bg-mintGreen flex items-center justify-center text-white mt-1">
-                                    <i class="fa-solid fa-check text-xs"></i>
-                                </div>
-                                <p class="ml-3 text-white font-medium">Silky-smooth navigation, even on slower data connections.</p>
-                            </li>
-                        </ul>
-                    </div>
-                    
-                    <div class="relative">
-                        <!-- Abstract UI representation of speed/updates -->
-                        <div class="bg-white/10 backdrop-blur-md border border-white/20 rounded-2xl p-6 shadow-2xl">
-                            <div class="flex items-center justify-between mb-6">
-                                <div class="flex items-center gap-3">
-                                    <div class="w-3 h-3 rounded-full bg-mintGreen animate-pulse"></div>
-                                    <span class="text-white font-medium">Live Server Connection</span>
-                                </div>
-                                <span class="text-mintGreen bg-mintGreen/20 px-2 py-1 rounded text-xs font-bold">9ms ping</span>
+                        <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center relative z-10">
+                            <div>
+                                <h2 class="text-mintGreen font-bold tracking-wide uppercase text-sm mb-2">The Clinick PH Difference</h2>
+                                <h3 class="text-3xl md:text-4xl font-bold text-white mb-6">Lightning fast. Zero lag. Instant updates.</h3>
+                                <p class="text-blue-100 text-lg mb-8 leading-relaxed">
+                                    We know there's nothing worse than an app that freezes when you're trying to book an urgent checkup. That's why Clinick PH is built on modern, state-of-the-art infrastructure.
+                                </p>
+                                
+                                <ul class="space-y-4">
+                                    <li class="flex items-start">
+                                        <div class="flex-shrink-0 w-6 h-6 rounded-full bg-mintGreen flex items-center justify-center text-white mt-1">
+                                            <i class="fa-solid fa-check text-xs"></i>
+                                        </div>
+                                        <p class="ml-3 text-white font-medium">Live queue monitoring—see how many patients are ahead of you.</p>
+                                    </li>
+                                    <li class="flex items-start">
+                                        <div class="flex-shrink-0 w-6 h-6 rounded-full bg-mintGreen flex items-center justify-center text-white mt-1">
+                                            <i class="fa-solid fa-check text-xs"></i>
+                                        </div>
+                                        <p class="ml-3 text-white font-medium">Instant notifications the second a doctor approves your slot.</p>
+                                    </li>
+                                    <li class="flex items-start">
+                                        <div class="flex-shrink-0 w-6 h-6 rounded-full bg-mintGreen flex items-center justify-center text-white mt-1">
+                                            <i class="fa-solid fa-check text-xs"></i>
+                                        </div>
+                                        <p class="ml-3 text-white font-medium">Silky-smooth navigation, even on slower data connections.</p>
+                                    </li>
+                                </ul>
                             </div>
                             
-                            <div class="space-y-4">
-                                <div class="bg-white rounded-xl p-4 transform transition-all hover:scale-105 cursor-default">
-                                    <div class="flex justify-between items-center">
-                                        <div>
-                                            <p class="text-xs text-gray-500 font-bold uppercase">Update Received</p>
-                                            <p class="text-darkText font-bold">Appointment Confirmed</p>
+                            <div class="relative">
+                                <!-- Abstract UI representation of speed/updates -->
+                                <div class="bg-white/10 backdrop-blur-md border border-white/20 rounded-2xl p-6 shadow-2xl">
+                                    <div class="flex items-center justify-between mb-6">
+                                        <div class="flex items-center gap-3">
+                                            <div class="w-3 h-3 rounded-full bg-mintGreen animate-pulse"></div>
+                                            <span class="text-white font-medium">Live Server Connection</span>
                                         </div>
-                                        <i class="fa-solid fa-bolt text-yellow-400 text-xl"></i>
+                                        <span class="text-mintGreen bg-mintGreen/20 px-2 py-1 rounded text-xs font-bold">9ms ping</span>
                                     </div>
-                                </div>
-                                <div class="bg-white rounded-xl p-4 opacity-75 transform transition-all hover:scale-105 cursor-default">
-                                    <div class="flex justify-between items-center">
-                                        <div>
-                                            <p class="text-xs text-gray-500 font-bold uppercase">Queue Status</p>
-                                            <p class="text-darkText font-bold">You are next in line!</p>
+                                    
+                                    <div class="space-y-4">
+                                        <div class="bg-white rounded-xl p-4 transform transition-all hover:scale-105 cursor-default">
+                                            <div class="flex justify-between items-center">
+                                                <div>
+                                                    <p class="text-xs text-gray-500 font-bold uppercase">Update Received</p>
+                                                    <p class="text-darkText font-bold">Appointment Confirmed</p>
+                                                </div>
+                                                <i class="fa-solid fa-bolt text-yellow-400 text-xl"></i>
+                                            </div>
                                         </div>
-                                        <i class="fa-solid fa-bell text-medicalBlue text-xl"></i>
+                                        <div class="bg-white rounded-xl p-4 opacity-75 transform transition-all hover:scale-105 cursor-default">
+                                            <div class="flex justify-between items-center">
+                                                <div>
+                                                    <p class="text-xs text-gray-500 font-bold uppercase">Queue Status</p>
+                                                    <p class="text-darkText font-bold">You are next in line!</p>
+                                                </div>
+                                                <i class="fa-solid fa-bell text-medicalBlue text-xl"></i>
+                                            </div>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
                         </div>
                     </div>
                 </div>
+            </section>
+        </div>
+
+        <!-- ABOUT US VIEW -->
+        <div id="view-about" class="page-view pt-32 pb-20">
+            <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+                <h1 class="text-4xl font-bold text-darkText mb-8">About Clinick PH</h1>
+                <div class="prose prose-lg text-gray-600">
+                    <p class="mb-6">Clinick PH is a digital health platform dedicated to improving the medical consultation experience in Zamboanga City. We bridge the gap between clinics and patients through seamless technology.</p>
+                    <p class="mb-6">Our team is committed to reducing wait times and making healthcare administration more efficient for both doctors and families.</p>
+                </div>
             </div>
         </div>
-    </section>
-    <!-- About Us Page Content -->
-    <div id="page-about" class="page-content pt-32 pb-20">
-        <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
-            <h1 class="text-4xl font-bold text-darkText mb-8">About Clinick PH</h1>
-            <div class="prose prose-lg text-gray-600 max-w-none">
-                <p class="mb-6">Clinick PH was born out of a desire to modernize the healthcare experience in Zamboanga City. We noticed the struggle of local families waiting hours in clinic lobbies and the administrative burden on our hardworking medical secretaries.</p>
-                <div class="grid grid-cols-1 md:grid-cols-2 gap-8 my-12">
-                    <div class="bg-medicalBlue-light p-8 rounded-2xl">
-                        <h3 class="text-medicalBlue font-bold text-xl mb-4">Our Mission</h3>
-                        <p>To provide every Zamboangueño with seamless, digital access to local healthcare services, reducing stress and improving health outcomes.</p>
+
+        <!-- FOR CLINICS VIEW -->
+        <div id="view-clinics" class="page-view pt-32 pb-20">
+            <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+                <h1 class="text-4xl font-bold text-darkText mb-6">For Medical Clinics</h1>
+                <p class="text-xl text-gray-600 mb-12">Empower your practice with digital tools designed for the modern Filipino clinic.</p>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-8 text-left">
+                    <div class="p-8 bg-lightBg rounded-2xl">
+                        <h3 class="font-bold text-xl mb-4">Queue Management</h3>
+                        <p class="text-gray-600">Automatically handle patient arrivals and notify them of their turn via the app.</p>
                     </div>
-                    <div class="bg-mintGreen-light p-8 rounded-2xl">
-                        <h3 class="text-mintGreen-dark font-bold text-xl mb-4">Our Vision</h3>
-                        <p>To be the leading digital healthcare bridge in the Zamboanga Peninsula, connecting patients and doctors through reliability and care.</p>
+                    <div class="p-8 bg-lightBg rounded-2xl">
+                        <h3 class="font-bold text-xl mb-4">Digital Records</h3>
+                        <p class="text-gray-600">Securely store and access patient history to provide better care outcomes.</p>
                     </div>
                 </div>
             </div>
         </div>
-    </div>
 
-    <!-- For Clinics Page Content -->
-    <div id="page-clinics" class="page-content pt-32 pb-20">
-        <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="bg-darkText rounded-3xl p-12 text-white relative overflow-hidden mb-16">
-                <div class="relative z-10">
-                    <h1 class="text-4xl font-bold mb-6">Empower your practice.</h1>
-                    <p class="text-xl text-blue-100 mb-8 max-w-2xl">Reduce waiting room congestion and digitize your patient records with our purpose-built platform for Zamboanga clinics.</p>
-                    <a href="mailto:partners@clinick.ph" class="bg-mintGreen hover:bg-mintGreen-dark px-8 py-4 rounded-full font-bold transition-all inline-block">Become a Partner</a>
-                </div>
-                <i class="fa-solid fa-hospital-user absolute bottom-0 right-0 text-9xl text-white/10 -mb-4 -mr-4"></i>
-            </div>
-            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
-                <div class="p-6 border border-gray-100 rounded-xl shadow-sm text-center">
-                    <div class="text-4xl font-bold text-medicalBlue mb-2">Automated</div>
-                    <p class="text-gray-600">Queue management and scheduling</p>
-                </div>
-                <div class="p-6 border border-gray-100 rounded-xl shadow-sm text-center">
-                    <div class="text-4xl font-bold text-medicalBlue mb-2">Secure</div>
-                    <p class="text-gray-600">Digital patient history storage</p>
-                </div>
-                <div class="p-6 border border-gray-100 rounded-xl shadow-sm text-center">
-                    <div class="text-4xl font-bold text-medicalBlue mb-2">Instant</div>
-                    <p class="text-gray-600">Patient communication tools</p>
+        <!-- PRIVACY POLICY VIEW -->
+        <div id="view-privacy" class="page-view pt-32 pb-20">
+            <div class="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8">
+                <h1 class="text-3xl font-bold text-darkText mb-8">Privacy Policy</h1>
+                <div class="text-gray-600 space-y-6">
+                    <p>At Clinick PH, we prioritize the security and privacy of your health data. This policy outlines how we collect, use, and safeguard your information.</p>
+                    <h2 class="text-xl font-bold text-darkText">Data Collection</h2>
+                    <p>We collect personal information such as name, contact details, and appointment history only to facilitate medical services.</p>
+                    <h2 class="text-xl font-bold text-darkText">Compliance</h2>
+                    <p>We adhere to the Data Privacy Act of 2012 (Republic Act No. 10173) to ensure your information is protected at all times.</p>
                 </div>
             </div>
         </div>
-    </div>
 
-    <!-- Privacy Policy Page Content -->
-    <div id="page-privacy" class="page-content pt-32 pb-20">
-        <div class="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8">
-            <h1 class="text-3xl font-bold mb-8">Privacy Policy</h1>
-            <div class="prose prose-blue text-gray-600">
-                <p class="mb-4 font-bold text-darkText italic">Last Updated: March 2026</p>
-                <h2 class="text-xl font-bold text-darkText mt-8 mb-4">1. Data We Collect</h2>
-                <p class="mb-6">To provide our services, we collect basic contact information, appointment history, and profile details for you and your family members. All medical data is handled with strict confidentiality in compliance with the Data Privacy Act of 2012.</p>
-                <h2 class="text-xl font-bold text-darkText mt-8 mb-4">2. Use of Information</h2>
-                <p class="mb-6">We use your information only to facilitate appointments, send notifications about your health visits, and improve the application's performance.</p>
+        <!-- TERMS OF SERVICE VIEW -->
+        <div id="view-terms" class="page-view pt-32 pb-20">
+            <div class="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8">
+                <h1 class="text-3xl font-bold text-darkText mb-8">Terms of Service</h1>
+                <div class="text-gray-600 space-y-6">
+                    <p>By using Clinick PH, you agree to comply with our usage terms designed to maintain a fair and efficient scheduling system for everyone.</p>
+                    <h2 class="text-xl font-bold text-darkText">User Conduct</h2>
+                    <p>Users are expected to honor booked appointments or cancel with sufficient notice to allow other patients to take the slot.</p>
+                    <h2 class="text-xl font-bold text-darkText">Service Limitation</h2>
+                    <p>Clinick PH is a scheduling platform and does not provide medical emergency services. In case of emergency, please visit the nearest hospital.</p>
+                </div>
             </div>
         </div>
-    </div>
+    </main>
 
-    <!-- Terms Page Content -->
-    <div id="page-terms" class="page-content pt-32 pb-20">
-        <div class="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8">
-            <h1 class="text-3xl font-bold mb-8">Terms of Service</h1>
-            <div class="prose prose-blue text-gray-600">
-                <h2 class="text-xl font-bold text-darkText mt-8 mb-4">1. Account Responsibility</h2>
-                <p class="mb-6">Users are responsible for the accuracy of information provided. False representation may result in account suspension.</p>
-                <h2 class="text-xl font-bold text-darkText mt-8 mb-4">2. Appointment Cancellations</h2>
-                <p class="mb-6">Users should cancel appointments at least 2 hours in advance. Frequent no-shows may limit your ability to book future appointments.</p>
-            </div>
-        </div>
-    </div>
     <!-- CTA Section -->
     <section id="download" class="py-20 bg-white">
         <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
             <h2 class="text-4xl md:text-5xl font-extrabold text-darkText mb-6">Ready to prioritize your health?</h2>
-            <p class="text-xl text-gray-600 mb-10 max-w-2xl mx-auto">
-                Join thousands of Zamboangueños who have already switched to the smarter way of managing healthcare. Download Clinick PH today.
-            </p>
-            
             <div class="flex flex-col sm:flex-row justify-center gap-4">
-                <a href="#" class="bg-darkText hover:bg-black text-white px-8 py-4 rounded-xl font-semibold text-lg transition-all flex items-center justify-center w-full sm:w-auto">
-                    <i class="fa-brands fa-apple text-2xl mr-3"></i>
-                    <div class="text-left">
-                        <span class="block text-xs font-normal opacity-80">Download on the</span>
-                        <span class="block leading-tight">App Store</span>
-                    </div>
+                <a href="#" class="bg-darkText text-white px-8 py-4 rounded-xl font-semibold flex items-center justify-center">
+                    <i class="fa-brands fa-apple text-2xl mr-3"></i> App Store
                 </a>
-                <a href="#" class="bg-medicalBlue hover:bg-medicalBlue-dark text-white px-8 py-4 rounded-xl font-semibold text-lg transition-all flex items-center justify-center w-full sm:w-auto shadow-lg shadow-medicalBlue/30">
-                    <i class="fa-brands fa-google-play text-2xl mr-3"></i>
-                    <div class="text-left">
-                        <span class="block text-xs font-normal opacity-80">GET IT ON</span>
-                        <span class="block leading-tight">Google Play</span>
-                    </div>
+                <a href="#" class="bg-medicalBlue text-white px-8 py-4 rounded-xl font-semibold flex items-center justify-center shadow-lg shadow-medicalBlue/30">
+                    <i class="fa-brands fa-google-play text-2xl mr-3"></i> Google Play
                 </a>
             </div>
         </div>
@@ -453,26 +436,21 @@
                 <!-- Brand Column -->
                 <div class="col-span-1 md:col-span-2">
                     <div class="flex items-center mb-6">
-                        <img src="logo-with-text.png" alt="Clinick Logo" class="h-12 w-auto object-contain brightness-0 invert opacity-90">
+                        <img src="logo-with-text.png" alt="Clinick Logo" class="h-12 w-auto object-contain brightness-0 invert opacity-90 cursor-pointer" onclick="navigateTo('home')">
                     </div>
                     <p class="text-gray-400 mb-6 max-w-sm">
                         Bridging the gap between patients and clinics in Zamboanga City through innovative, reliable mobile technology.
                     </p>
-                    <div class="flex space-x-4">
-                        <a href="#" class="text-gray-400 hover:text-white transition-colors bg-gray-800 p-2 rounded-full w-10 h-10 flex items-center justify-center"><i class="fa-brands fa-facebook-f"></i></a>
-                        <a href="#" class="text-gray-400 hover:text-white transition-colors bg-gray-800 p-2 rounded-full w-10 h-10 flex items-center justify-center"><i class="fa-brands fa-twitter"></i></a>
-                        <a href="#" class="text-gray-400 hover:text-white transition-colors bg-gray-800 p-2 rounded-full w-10 h-10 flex items-center justify-center"><i class="fa-brands fa-instagram"></i></a>
-                    </div>
                 </div>
 
                 <!-- Links Column -->
                 <div>
                     <h4 class="text-white font-bold mb-4 uppercase text-sm tracking-wider">Company</h4>
                     <ul class="space-y-2">
-                        <li><a href="javascript:void(0)" onclick="showPage('about')" class="text-gray-400 hover:text-mintGreen transition-colors">About Us</a></li>
-                        <li><a href="javascript:void(0)" onclick="showPage('clinics')" class="text-gray-400 hover:text-mintGreen transition-colors">For Clinics</a></li>
-                        <li><a href="javascript:void(0)" onclick="showPage('privacy')" class="text-gray-400 hover:text-mintGreen transition-colors">Privacy Policy</a></li>
-                        <li><a href="javascript:void(0)" onclick="showPage('terms')" class="text-gray-400 hover:text-mintGreen transition-colors">Terms of Service</a></li>
+                        <li><a href="javascript:void(0)" onclick="navigateTo('about')" class="text-gray-400 hover:text-mintGreen transition-colors">About Us</a></li>
+                        <li><a href="javascript:void(0)" onclick="navigateTo('clinics')" class="text-gray-400 hover:text-mintGreen transition-colors">For Clinics</a></li>
+                        <li><a href="javascript:void(0)" onclick="navigateTo('privacy')" class="text-gray-400 hover:text-mintGreen transition-colors">Privacy Policy</a></li>
+                        <li><a href="javascript:void(0)" onclick="navigateTo('terms')" class="text-gray-400 hover:text-mintGreen transition-colors">Terms of Service</a></li>
                     </ul>
                 </div>
 
@@ -480,102 +458,73 @@
                 <div>
                     <h4 class="text-white font-bold mb-4 uppercase text-sm tracking-wider">Contact</h4>
                     <ul class="space-y-3">
-                        <li class="flex items-start text-gray-400">
-                            <i class="fa-solid fa-location-dot mt-1 mr-3 text-mintGreen"></i>
-                            <span>Cabatangan, Zamboanga City, 7000 Philippines</span>
-                        </li>
-                        <li class="flex items-center text-gray-400">
-                            <i class="fa-solid fa-envelope mr-3 text-mintGreen"></i>
-                            <a href="mailto:hello@clinick.ph" class="hover:text-white transition-colors">aljon.mutalib@gmail.com</a>
-                        </li>
-                        <li class="flex items-center text-gray-400">
-                            <i class="fa-solid fa-phone mr-3 text-mintGreen"></i>
-                            <span>(063) 906-205-0074</span>
-                        </li>
+                        <li class="flex items-start text-gray-400"><i class="fa-solid fa-location-dot mt-1 mr-3 text-mintGreen"></i><span>Mayor Jaldon St, Zamboanga City</span></li>
+                        <li class="flex items-center text-gray-400"><i class="fa-solid fa-envelope mr-3 text-mintGreen"></i><a href="mailto:hello@clinick.ph">hello@clinick.ph</a></li>
                     </ul>
                 </div>
             </div>
-
-            <div class="border-t border-gray-800 pt-8 flex flex-col md:flex-row justify-between items-center">
-                <p class="text-gray-500 text-sm">
-                    &copy; 2026 Clinick PH. All rights reserved.
-                </p>
-                <p class="text-gray-500 text-sm mt-2 md:mt-0 flex items-center">
-                    Made with <i class="fa-solid fa-heart text-red-500 mx-1"></i> in Zamboanga.
-                </p>
+            <div class="border-t border-gray-800 pt-8 flex flex-col md:flex-row justify-between items-center text-gray-500 text-sm">
+                <p>&copy; 2026 Clinick PH. All rights reserved.</p>
+                <p>Made with <i class="fa-solid fa-heart text-red-500 mx-1"></i> in Zamboanga.</p>
             </div>
         </div>
     </footer>
 
     <!-- Interactive Scripts -->
     <script>
-        function showPage(pageId) {
-            // Hide all pages
-            document.querySelectorAll('.page-content').forEach(p => p.classList.remove('active'));
-            // Show target page
-            const target = document.getElementById('page-' + pageId);
-            if(target) {
-                target.classList.add('active');
+        // Navigation Router
+        function navigateTo(viewId, sectionId = null) {
+            // Hide all views
+            document.querySelectorAll('.page-view').forEach(view => {
+                view.classList.remove('active');
+            });
+            
+            // Show requested view
+            const targetView = document.getElementById('view-' + viewId);
+            if(targetView) {
+                targetView.classList.add('active');
+            }
+            
+            // Handle scrolling to sections if specified
+            if(sectionId) {
+                setTimeout(() => {
+                    const section = document.getElementById(sectionId);
+                    if(section) {
+                        const headerOffset = 80;
+                        const elementPosition = section.getBoundingClientRect().top;
+                        const offsetPosition = elementPosition + window.pageYOffset - headerOffset;
+                        window.scrollTo({ top: offsetPosition, behavior: 'smooth' });
+                    }
+                }, 50);
+            } else {
                 window.scrollTo(0, 0);
             }
+
+            // Close mobile menu
+            document.getElementById('mobile-menu').classList.add('hidden');
+            const icon = document.getElementById('mobile-menu-btn').querySelector('i');
+            icon.classList.remove('fa-xmark');
+            icon.classList.add('fa-bars');
         }
+
         // Mobile Menu Toggle
         const btn = document.getElementById('mobile-menu-btn');
         const menu = document.getElementById('mobile-menu');
-        const icon = btn.querySelector('i');
-
         btn.addEventListener('click', () => {
             menu.classList.toggle('hidden');
-            if(menu.classList.contains('hidden')) {
-                icon.classList.remove('fa-xmark');
-                icon.classList.add('fa-bars');
-            } else {
-                icon.classList.remove('fa-bars');
-                icon.classList.add('fa-xmark');
-            }
+            const icon = btn.querySelector('i');
+            icon.classList.toggle('fa-bars');
+            icon.classList.toggle('fa-xmark');
         });
 
-        // Close mobile menu when a link is clicked
-        menu.querySelectorAll('a').forEach(link => {
-            link.addEventListener('click', () => {
-                menu.classList.add('hidden');
-                icon.classList.remove('fa-xmark');
-                icon.classList.add('fa-bars');
-            });
-        });
-
-        // Navbar scroll effect (add shadow/shrink slightly on scroll)
-        const navbar = document.getElementById('navbar');
+        // Navbar scroll effect
         window.addEventListener('scroll', () => {
-            if (window.scrollY > 10) {
-                navbar.classList.add('py-0');
-                navbar.classList.remove('py-2');
+            const navbar = document.getElementById('navbar');
+            if (window.scrollY > 20) {
+                navbar.classList.add('shadow-md');
             } else {
-                navbar.classList.add('py-2');
-                navbar.classList.remove('py-0');
+                navbar.classList.remove('shadow-md');
             }
-        });
-
-        // Smooth scroll for anchor links
-        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-            anchor.addEventListener('click', function (e) {
-                e.preventDefault();
-                const targetId = this.getAttribute('href');
-                if(targetId === '#') return;
-                
-                const targetElement = document.querySelector(targetId);
-                if(targetElement) {
-                    // Adjust offset for fixed header
-                    const headerOffset = 80; 
-                    const elementPosition = targetElement.getBoundingClientRect().top;
-                    const offsetPosition = elementPosition + window.pageYOffset - headerOffset;
-      
-                    window.scrollTo({
-                         top: offsetPosition,
-                         behavior: "smooth"
-                    });
-                }
-            });
         });
     </script>
 </body>
